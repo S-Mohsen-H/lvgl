@@ -367,6 +367,7 @@ static inline void * lv_obj_get_user_data(lv_obj_t * obj)
  * Other functions
  *======================*/
 
+extern void setObjEventCallBack(void (*cb)(void));
 /**
  * Allocate special data for an object if not allocated yet.
  * @param obj   pointer to an object

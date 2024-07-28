@@ -602,6 +602,16 @@ static lv_result_t scrollbar_init_draw_dsc(lv_obj_t * obj, lv_draw_rect_dsc_t * 
     }
 }
 
+void (*feedBackCallBack)(void);
+void setObjEventCallBack(void (*cb)(void) )
+{
+	feedBackCallBack = cb;
+}
+void doCB()
+{
+	feedBackCallBack();
+}
+
 static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
 {
     LV_UNUSED(class_p);
@@ -610,7 +620,7 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
     lv_obj_t * obj = lv_event_get_current_target(e);
     if(code == LV_EVENT_PRESSED) {
         lv_obj_add_state(obj, LV_STATE_PRESSED);
-    }
+		}
     else if(code == LV_EVENT_RELEASED) {
         lv_obj_remove_state(obj, LV_STATE_PRESSED);
         void * param = lv_event_get_param(e);
@@ -634,6 +644,7 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
         }
     }
     else if(code == LV_EVENT_KEY) {
+				doCB();
         if(lv_obj_has_flag(obj, LV_OBJ_FLAG_CHECKABLE)) {
             uint32_t c = lv_event_get_key(e);
             if(c == LV_KEY_RIGHT || c == LV_KEY_UP) {
