@@ -50,8 +50,8 @@ extern "C" {
 #endif
 
 /* lv_tlsf_t: a TLSF structure. Can contain 1 to N pools. */
-/* lv_pool_t: a block of memory that TLSF can manage. */
 typedef void * lv_tlsf_t;
+/* lv_pool_t: a block of memory that TLSF can manage. */
 typedef void * lv_pool_t;
 
 typedef struct {
